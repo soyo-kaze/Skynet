@@ -14,9 +14,15 @@ y = np.random.randint(0,len(np.array(k)))
 
 #-----end-----
 
+#security
+f = open("token.txt","r")
+t = f.read()
+f.close()
+
 
 @client.event
 async def on_ready():
+    #await channel.send("swagat ni karoge hamara!!")
     print("UP AND RUNNING".format(client))
 
 
@@ -46,4 +52,4 @@ async def on_message(message):
         await message.channel.send("hasta-la-vista baby!!:hand_splayed:")
         exit(0)
 
-client.run('NjM3NzAxNDI5NjE1OTE5MTM0.XbSDCQ.X97Iu4NwzkOPeu0VRNMxA594okA')
+client.run(t)
