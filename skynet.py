@@ -2,33 +2,35 @@ import discord
 
 client = discord.Client()
 
-#for jokes
-#------start-----
+
+# for jokes
+# ------start-----
+
 
 import numpy as np
 import pandas as pd
 
 z = pd.read_csv('jokes.csv')
-k = z.iloc[:,1:2]
-y = np.random.randint(0,len(np.array(k)))
+k = z.iloc[:, 1:2]
+y = np.random.randint(0, len(np.array(k)))
 
-#-----end-----
+# -----end-----
 
-#security
-f = open("token.txt","r")
+# security
+f = open("token.txt", "r")
 t = f.read()
 f.close()
 
 
 @client.event
 async def on_ready():
-    #await channel.send("swagat ni karoge hamara!!")
+    # await send("swagat ni karoge hamara!!")
     print("UP AND RUNNING".format(client))
 
 
 @client.event
 async def on_message(message):
-    global y,l
+    global k
 
     if message.author == client.user:
         print("\n yeah same!!")
@@ -37,11 +39,9 @@ async def on_message(message):
         x = message.content.startswith('$heyo')
         print(x)
         await message.channel.send('\n jhalta hai BSDK!!')
-    if message.content.startswith('chammar kon hai'):
-        await message.channel.send('chutiya mayank!!')
     if message.content.startswith('god kon hai'):
         await message.channel.send('senpai aap ho SAM THE GOD!!')
-    if message.content.startswith('chutiya bot'):
+    if message.content.startswith('retard bot'):
         await message.channel.send('go fuck yourself!! :rage:  :middle_finger: :imp: ')
     if message.content.startswith('wishes'):
         await message.channel.send('happy diwali to you all retards!!:middle_finger: :spy: ')
