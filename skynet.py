@@ -1,4 +1,5 @@
 import discord
+import time
 
 client = discord.Client()
 
@@ -27,14 +28,16 @@ async def on_ready():
     # await send("swagat ni karoge hamara!!")
     print("UP AND RUNNING".format(client))
 
-
+stop = False # **
 @client.event
 async def on_message(message):
     global k
-
+    global stop # **
     if message.author == client.user:
-        print("\n yeah same!!")
+        print("\n yeah same!!" + " " + str(stop))
         return
+    if message.content.startswith("stop"):
+        stop = True
     if message.content.startswith('$heyo'):
         x = message.content.startswith('$heyo')
         print(x)
@@ -48,6 +51,26 @@ async def on_message(message):
     if message.content.startswith('jokes') or message.content.startswith('Jokes'):
         y = np.random.randint(0,len(np.array(k)))
         await message.channel.send(np.array(k)[y][0])
+    if message.content.startswith("$cmc"):
+        await message.channel.send("cmc "+message.author.name)
+# spamming # **
+#---------- start ------------
+    if message.content.startswith('$spam'):
+        spam = message.content.lower().split(" ")
+        print(spam)
+        size = spam[1]
+        tim = spam[2]
+        mess = " ".join(spam[3:])
+        for x in range(0,int(size)):            
+            if stop:
+                print("done")
+                await message.channel.send("Ok Boss spamming is on halt!!")
+                stop = False
+                break
+            else:
+                time.sleep(int(tim))
+                await message.channel.send(mess)
+# ---------- end -------------           
     if message.content.startswith('rukja bot'):
         await message.channel.send("hasta-la-vista baby!!:hand_splayed:")
         exit(0)
