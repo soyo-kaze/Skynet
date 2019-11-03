@@ -17,11 +17,11 @@ y = np.random.randint(0, len(np.array(k)))
 
 # -----end-----
 
-# security
+# security------------------
 f = open("token.txt", "r")
 t = f.read()
 f.close()
-
+#---------------------------
 
 @client.event
 async def on_ready():
@@ -35,7 +35,6 @@ async def on_message(message):
     global stop # **
     if message.author == client.user:
         print("\n yeah same!!" + " " + str(stop))
-        return
     if message.content.startswith("stop"):
         stop = True
     if message.content.startswith('$heyo'):
@@ -48,11 +47,15 @@ async def on_message(message):
         await message.channel.send('go fuck yourself!! :rage:  :middle_finger: :imp: ')
     if message.content.startswith('wishes'):
         await message.channel.send('happy diwali to you all retards!!:middle_finger: :spy: ')
+#-----------------------------------------------------------
     if message.content.startswith('jokes') or message.content.startswith('Jokes'):
         y = np.random.randint(0,len(np.array(k)))
         await message.channel.send(np.array(k)[y][0])
+#-----------------------------------------------------------
+        
     if message.content.startswith("$cmc"):
-        await message.channel.send("cmc "+message.author.name)
+        await message.channel.send("cmc "+message.author.mention)
+
 # spamming # **
 #---------- start ------------
     if message.content.startswith('$spam'):
@@ -70,9 +73,11 @@ async def on_message(message):
             else:
                 time.sleep(int(tim))
                 await message.channel.send(mess)
-# ---------- end -------------           
+# ---------- end -------------
+
     if message.content.startswith('rukja bot'):
         await message.channel.send("hasta-la-vista baby!!:hand_splayed:")
         exit(0)
+
 
 client.run(t)
