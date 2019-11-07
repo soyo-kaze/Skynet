@@ -1,7 +1,7 @@
 import discord
 import time
 
-client = discord.Client()
+#client = discord.Client() # when not using prefixes in bot
 
 
 # for jokes
@@ -23,12 +23,34 @@ t = f.read()
 f.close()
 #---------------------------
 
+
+# Commands and Prefixes
+#------------------------------
+
+from discord.ext import commands
+
+client = commands.Bot(command_prefix = '$')
+
+#------------------------------
+
+
 @client.event
 async def on_ready():
     # await send("swagat ni karoge hamara!!")
-    print("UP AND RUNNING".format(client))
+    print("UP AND RUNNING")
+
+# Commands
+#------- starts -----------
+
+@client.command()
+async def greet(ctx):
+    await ctx.send("hello")
+
+#------- end --------------
+
 
 stop = False # **
+
 @client.event
 async def on_message(message):
     global k
@@ -75,9 +97,10 @@ async def on_message(message):
                 await message.channel.send(mess)
 # ---------- end -------------
 
-    if message.content.startswith('rukja bot'):
+    if message.content.startswith('rukja client'):
         await message.channel.send("hasta-la-vista baby!!:hand_splayed:")
         exit(0)
-
+    #if message.content.startswith("$greet"):
+        #await client.process_commands(message)
 
 client.run(t)
