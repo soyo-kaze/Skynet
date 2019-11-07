@@ -62,7 +62,7 @@ async def on_message(message):
     if message.content.startswith('$heyo'):
         x = message.content.startswith('$heyo')
         print(x)
-        await message.channel.send('\n jhalta hai BSDK!!')
+        await message.channel.send('\n jhalta hai!!')
     if message.content.startswith('god kon hai'):
         await message.channel.send('senpai aap ho SAM THE GOD!!')
     if message.content.startswith('retard bot'):
