@@ -14,7 +14,7 @@ import pandas as pd
 z = pd.read_csv('jokes.csv')
 k = z.iloc[:, 1:2]
 y = np.random.randint(0, len(np.array(k)))
-
+vc = ""
 # -----end-----
 
 # security------------------
@@ -41,16 +41,182 @@ async def on_ready():
 
 # Commands
 #------- starts -----------
+stop = False # **
 
 @client.command()
 async def greet(ctx):
     await ctx.send("hello")
+    
+@client.command()
+async def cmc(ctx):
+    await ctx.send("cmc "+ctx.author.mention)
+
+@client.command()
+async def jokes(ctx):
+    y = np.random.randint(0,len(np.array(k)))
+    await ctx.send(np.array(k)[y][0])
+
+@client.command()
+async def spam(ctx, *message):
+    global stop
+    spam = message[:]
+    print(spam)        
+    size = spam[0]
+    tim = spam[1]
+    mess = " ".join(spam[2:])
+    print (size,tim,mess)
+    for x in range(0,int(size)):            
+        if stop:
+            print("done")
+            stop = False
+            await ctx.send("Ok Boss spamming is on halt!!")
+            break
+        else:
+            time.sleep(float(tim))
+            await ctx.send(mess)
+            
+@client.command()
+async def stop(ctx):
+    global stop
+    stop = True
+@client.command()
+async def nikal_lavde(ctx):
+    await ctx.send("hasta-la-vista baby!!:hand_splayed:")
+    exit(0)
+
+#----------------------- VC commands --------------------------
+from gtts import gTTS
+import youtube_dl
+import os
+
+moany = []
+for fi in os.listdir('./NSFW/'):
+    moany.append(fi)
+print(moany)
+
+@client.command()
+async def ping(ctx):
+    ping = client.latency
+    ping = round(ping*1000)
+    await ctx.send("ping is "+str(ping)+"ms")
+
+@client.command()
+async def connect(ctx):
+    global pl
+    global vc
+    pl = discord.FFmpegPCMAudio(executable="C:/Users/Sonu/Desktop/SLAM_v1.5.4(1)/ffmpeg.exe", source="sup.mp3")
+    channel = ctx.author.voice.channel
+    vc = await channel.connect()
+    await ctx.send("I am here, I AM HEERREEEEEEEE!! AT "+str(channel))
+    vc.play(pl)
+    print(channel, vc)
+
+@client.command()
+async def disconnect(ctx):
+    print(client.voice_clients)
+    if len(client.voice_clients)==0:
+        await ctx.send("I am not connected to any VC, retarded "+ctx.author.mention+" !!")
+    for x in client.voice_clients:
+        if len(client.voice_clients)!=0:
+            await ctx.send("**SILENT** hojata hu warna mein hi **VIOLENT** hojaunga")
+            await x.disconnect()
+            
+
+@client.command()
+async def play(ctx):    
+    global pl
+    global vc
+    pl = discord.FFmpegPCMAudio(executable="C:/Users/Sonu/Desktop/SLAM_v1.5.4(1)/ffmpeg.exe", source="JOJO.mp3")
+    vc.play(pl)
+    
+@client.command()
+async def tts(ctx,*mes):
+    global pl
+    global vc
+    #print("haha")
+    print(mes)
+    print(" ".join(mes))
+    speech = gTTS(" ".join(mes), 'en')
+    var = "ply"
+    #print("doneo")
+    speech.save(var+".mp3")
+    print("ok")
+    pl = discord.FFmpegPCMAudio(executable="C:/Users/Sonu/Desktop/SLAM_v1.5.4(1)/ffmpeg.exe", source="ply.mp3")
+    vc.play(pl)
+
+@client.command()
+async def pause(ctx):
+    global vc
+    vc.pause()
+
+@client.command()
+async def ruk(ctx):
+    global vc
+    vc.stop()
+
+@client.command()
+async def resume(ctx):
+    global vc
+    vc.resume()
+players = {}
+@client.command()
+async def yt(ctx, url):
+    global vc
+    global pl
+    song = False
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'postprocessors': [
+            {'key': 'FFmpegExtractAudio','preferredcodec': 'mp3',
+             'preferredquality': '192',
+            }
+        ],
+    }
+
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        info_dict = ydl.extract_info(url,download=False)
+    #print("hello")
+    for file in os.listdir('./'):
+        if file.endswith(".webm"):
+            os.rename(file, "song.mp3")
+    x = info_dict['title']
+    print(x[:5])
+    for file in os.listdir('./'):
+        print(file)
+        if file.startswith(x[:5]):
+            song = True
+            break
+    if song:
+            pl = discord.FFmpegPCMAudio(executable="C:/Users/Sonu/Desktop/SLAM_v1.5.4(1)/ffmpeg.exe", source=file)
+            vc.play(pl)
+    else:
+        
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            info_dict = ydl.extract_info(url,download=True)
+        for file in os.listdir('./'):
+            if file.startswith(x[:5]):
+                break
+        print(file)
+        pl = discord.FFmpegPCMAudio(executable="C:/Users/Sonu/Desktop/SLAM_v1.5.4(1)/ffmpeg.exe", source=file)
+        vc.play(pl)    
+
+@client.command()
+async def moan(ctx):
+    global vc
+    global pl
+    yi = np.random.randint(0,len(moany))
+    print("jaj")
+    sor = "./NSFW/"+moany[yi]
+    pl = discord.FFmpegPCMAudio(executable="C:/Users/Sonu/Desktop/SLAM_v1.5.4(1)/ffmpeg.exe", source=sor)
+    print("lal")
+    vc.play(pl)    
+#------------------------------ VC end ---------------------------
 
 #------- end --------------
 
 
-stop = False # **
 
+"""
 @client.event
 async def on_message(message):
     global k
@@ -102,5 +268,5 @@ async def on_message(message):
         exit(0)
     #if message.content.startswith("$greet"):
         #await client.process_commands(message)
-
+"""
 client.run(t)
