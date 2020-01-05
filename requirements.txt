@@ -6,3 +6,4 @@ numpy
 pandas
 pytz
 gtts
+youtube_dl
