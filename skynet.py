@@ -81,14 +81,16 @@ async def stop(ctx):
     stop = True
 @client.command()
 async def nikal_lavde(ctx):
+    if ts:
+        await ctx.invoke(client.get_command("discon")) #lmao discord.py server saved my ass
     await ctx.send("hasta-la-vista baby!!:hand_splayed:")
-    exit(0)
+    exit()
 
 #----------------------- VC commands --------------------------
 from gtts import gTTS
 import youtube_dl
 import os
-
+ts = False
 moany = []
 for fi in os.listdir('./NSFW/'):
     moany.append(fi)
@@ -104,15 +106,19 @@ async def ping(ctx):
 async def connect(ctx):
     global pl
     global vc
-    pl = discord.FFmpegPCMAudio(executable="C:/Users/Sonu/Desktop/SLAM_v1.5.4(1)/ffmpeg.exe", source="sup.mp3")
+    global ts
+    ts = True
+    #pl = discord.FFmpegPCMAudio(executable="C:/Users/Sonu/Desktop/SLAM_v1.5.4(1)/ffmpeg.exe", source="sup.mp3")
     channel = ctx.author.voice.channel
     vc = await channel.connect()
     await ctx.send("I am here, I AM HEERREEEEEEEE!! AT "+str(channel))
-    vc.play(pl)
+    #vc.play(pl)
     print(channel, vc)
 
 @client.command()
-async def disconnect(ctx):
+async def discon(ctx):
+    global ts
+    ts=False
     print(client.voice_clients)
     if len(client.voice_clients)==0:
         await ctx.send("I am not connected to any VC, retarded "+ctx.author.mention+" !!")
@@ -167,37 +173,39 @@ async def yt(ctx, url):
     ydl_opts = {
         'format': 'bestaudio/best',
         'postprocessors': [
-            {'key': 'FFmpegExtractAudio','preferredcodec': 'mp3',
+            {'key': 'FFmpegExtractAudio',
+             'preferredcodec': 'mp3',
              'preferredquality': '192',
             }
         ],
+        'outtmpl':'./songs/%(title)s.%(ext)s',
     }
 
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         info_dict = ydl.extract_info(url,download=False)
     #print("hello")
-    for file in os.listdir('./'):
+    for file in os.listdir('./songs/'):
         if file.endswith(".webm"):
             os.rename(file, "song.mp3")
     x = info_dict['title']
-    print(x[:5])
-    for file in os.listdir('./'):
+    print(x[:-1])
+    for file in os.listdir('./songs/'):
         print(file)
-        if file.startswith(x[:5]):
+        if file.startswith(x[:-1]):
             song = True
             break
     if song:
-            pl = discord.FFmpegPCMAudio(executable="C:/Users/Sonu/Desktop/SLAM_v1.5.4(1)/ffmpeg.exe", source=file)
+            pl = discord.FFmpegPCMAudio(executable="C:/Users/Sonu/Desktop/SLAM_v1.5.4(1)/ffmpeg.exe", source="./songs/"+file)
             vc.play(pl)
     else:
         
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(url,download=True)
-        for file in os.listdir('./'):
-            if file.startswith(x[:5]):
+        for file in os.listdir('./songs/'):
+            if file.startswith(x[:-1]):
                 break
         print(file)
-        pl = discord.FFmpegPCMAudio(executable="C:/Users/Sonu/Desktop/SLAM_v1.5.4(1)/ffmpeg.exe", source=file)
+        pl = discord.FFmpegPCMAudio(executable="C:/Users/Sonu/Desktop/SLAM_v1.5.4(1)/ffmpeg.exe", source="./songs/"+file)
         vc.play(pl)    
 
 @client.command()
@@ -209,7 +217,15 @@ async def moan(ctx):
     sor = "./NSFW/"+moany[yi]
     pl = discord.FFmpegPCMAudio(executable="C:/Users/Sonu/Desktop/SLAM_v1.5.4(1)/ffmpeg.exe", source=sor)
     print("lal")
-    vc.play(pl)    
+    vc.play(pl)
+
+@client.command()
+async def meme(ctx,*me):
+    global vc
+    global pl
+    pl = discord.FFmpegPCMAudio(executable="C:/Users/Sonu/Desktop/SLAM_v1.5.4(1)/ffmpeg.exe", source="./meme/"+me[0]+".mp3")
+    vc.play(pl)
+
 #------------------------------ VC end ---------------------------
 
 #------- end --------------
