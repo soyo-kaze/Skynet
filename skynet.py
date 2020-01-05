@@ -79,13 +79,14 @@ async def spam(ctx, *message):
 async def stop(ctx):
     global stop
     stop = True
+"""
 @client.command()
 async def nikal_lavde(ctx):
     if ts:
         await ctx.invoke(client.get_command("discon")) #lmao discord.py server saved my ass
     await ctx.send("hasta-la-vista baby!!:hand_splayed:")
     exit()
-
+"""
 #----------------------- VC commands --------------------------
 from gtts import gTTS
 import youtube_dl
