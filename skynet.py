@@ -133,7 +133,7 @@ async def discon(ctx):
 async def play(ctx):    
     global pl
     global vc
-    pl = discord.FFmpegPCMAudio(executable="./ffmpeg.exe", source="JOJO.mp3")
+    pl = discord.FFmpegPCMAudio(source="JOJO.mp3")
     vc.play(pl)
     
 @client.command()
@@ -148,7 +148,7 @@ async def tts(ctx,*mes):
     #print("doneo")
     speech.save(var+".mp3")
     print("ok")
-    pl = discord.FFmpegPCMAudio(executable="./ffmpeg.exe", source="ply.mp3")
+    pl = discord.FFmpegPCMAudio(source="ply.mp3")
     vc.play(pl)
 
 @client.command()
@@ -196,7 +196,7 @@ async def yt(ctx, url):
             song = True
             break
     if song:
-            pl = discord.FFmpegPCMAudio(executable="./ffmpeg.exe", source="./songs/"+file)
+            pl = discord.FFmpegPCMAudio(source="./songs/"+file)
             vc.play(pl)
     else:
         
@@ -206,7 +206,7 @@ async def yt(ctx, url):
             if file.startswith(x[:-1]):
                 break
         print(file)
-        pl = discord.FFmpegPCMAudio(executable="./ffmpeg.exe", source="./songs/"+file)
+        pl = discord.FFmpegPCMAudio( source="./songs/"+file)
         vc.play(pl)    
 
 @client.command()
@@ -216,7 +216,7 @@ async def moan(ctx):
     yi = np.random.randint(0,len(moany))
     print("jaj")
     sor = "./NSFW/"+moany[yi]
-    pl = discord.FFmpegPCMAudio(executable="./ffmpeg.exe", source=sor)
+    pl = discord.FFmpegPCMAudio( source=sor)
     print("lal")
     vc.play(pl)
 
@@ -224,7 +224,7 @@ async def moan(ctx):
 async def meme(ctx,*me):
     global vc
     global pl
-    pl = discord.FFmpegPCMAudio(executable="./ffmpeg.exe", source="./meme/"+me[0]+".mp3")
+    pl = discord.FFmpegPCMAudio(source="./meme/"+me[0]+".mp3")
     vc.play(pl)
 
 #------------------------------ VC end ---------------------------
