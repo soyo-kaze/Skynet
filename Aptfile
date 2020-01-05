@@ -27,3 +27,5 @@ libx264-dev
 libxvidcore-dev 
 libopenal-dev 
 libcdio-paranoia-dev
+libvpx
+gcc
