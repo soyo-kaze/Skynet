@@ -22,7 +22,8 @@ f = open("token.txt", "r")
 t = f.read()
 f.close()
 #---------------------------
-#t = cipher.dec(t)
+#t = cipher.dec(t) # <---- uncomment this code 
+
 
 # Commands and Prefixes
 #------------------------------
