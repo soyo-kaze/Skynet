@@ -1,6 +1,6 @@
 import discord
 import time
-
+import cipher
 #client = discord.Client() # when not using prefixes in bot
 
 
@@ -22,7 +22,7 @@ f = open("token.txt", "r")
 t = f.read()
 f.close()
 #---------------------------
-
+t = cipher.dec(t)
 
 # Commands and Prefixes
 #------------------------------
