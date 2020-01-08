@@ -109,18 +109,22 @@ async def connect(ctx):
     global pl
     global vc
     global ts
-    ts = True
     #pl = discord.FFmpegPCMAudio(executable="C:/Users/Sonu/Desktop/SLAM_v1.5.4(1)/ffmpeg.exe", source="sup.mp3")
-    channel = ctx.author.voice.channel
-    vc = await channel.connect()
+    if ctx.author.voice == something:
+        #send connection exception to the server
+        pass
+    else:
+        channel = ctx.author.voice.channel
+        vc = await channel.connect()
+        ts = True
+    print(ctx.author.voice)
     await ctx.send("I am here, I AM HEERREEEEEEEE!! AT "+str(channel))
     #vc.play(pl)
     print(channel, vc)
 
 @client.command()
-async def discon(ctx):
+async def disconnect(ctx):
     global ts
-    ts=False
     print(client.voice_clients)
     if len(client.voice_clients)==0:
         await ctx.send("I am not connected to any VC, retarded "+ctx.author.mention+" !!")
@@ -128,14 +132,18 @@ async def discon(ctx):
         if len(client.voice_clients)!=0:
             await ctx.send("**SILENT** hojata hu warna mein hi **VIOLENT** hojaunga")
             await x.disconnect()
+            ts=False
             
 
 @client.command()
 async def play(ctx):    
     global pl
     global vc
-    pl = discord.FFmpegPCMAudio(source="JOJO.mp3")
-    vc.play(pl)
+    if ts:
+        pl = discord.FFmpegPCMAudio(source="./meme/JOJO.mp3")
+        vc.play(pl)
+    else:
+        await ctx.send("Please connect me to any VC!! so I can play your reatarded music (-_-*) ")
     
 @client.command()
 async def tts(ctx,*mes):
@@ -149,8 +157,11 @@ async def tts(ctx,*mes):
     #print("doneo")
     speech.save(var+".mp3")
     print("ok")
-    pl = discord.FFmpegPCMAudio(source="ply.mp3")
-    vc.play(pl)
+    if ts:
+        pl = discord.FFmpegPCMAudio(source="ply.mp3")
+        vc.play(pl)
+    else:
+        await ctx.send("I am not connected nig!! FFS... "+ctx.author.mention+" !!")
 
 @client.command()
 async def pause(ctx):
@@ -217,16 +228,22 @@ async def moan(ctx):
     yi = np.random.randint(0,len(moany))
     print("jaj")
     sor = "./NSFW/"+moany[yi]
-    pl = discord.FFmpegPCMAudio( source=sor)
-    print("lal")
-    vc.play(pl)
+    if ts:
+        pl = discord.FFmpegPCMAudio( source=sor)
+        print("lal")
+        vc.play(pl)
+    else:
+        await ctx.send("FFS let me in the VC!! *DIMAG SE PAIDAL*.. "+ctx.author.mention+" !!")
 
 @client.command()
 async def meme(ctx,*me):
     global vc
     global pl
-    pl = discord.FFmpegPCMAudio(source="./meme/"+me[0]+".mp3")
-    vc.play(pl)
+    if ts:
+        pl = discord.FFmpegPCMAudio(source="./meme/"+me[0]+".mp3")
+        vc.play(pl)
+    else:
+        await ctx.send("You don't deserve these memes.. "+ctx.author.mention+" !!")
 
 #------------------------------ VC end ---------------------------
 
