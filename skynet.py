@@ -110,17 +110,16 @@ async def connect(ctx):
     global vc
     global ts
     #pl = discord.FFmpegPCMAudio(executable="C:/Users/Sonu/Desktop/SLAM_v1.5.4(1)/ffmpeg.exe", source="sup.mp3")
-    if ctx.author.voice == something:
-        #send connection exception to the server
-        pass
+    print(ctx.author.voice)
+    if ctx.author.voice == None:
+        await ctx.send("``` Not connected to your AWAZ CHANNEL !! MERI NASS PAT JAOGI MANE VC MEIN JOD!! ```"+ctx.author.mention+" !!")
     else:
         channel = ctx.author.voice.channel
         vc = await channel.connect()
         ts = True
-    print(ctx.author.voice)
-    await ctx.send("I am here, I AM HEERREEEEEEEE!! AT "+str(channel))
-    #vc.play(pl)
-    print(channel, vc)
+        await ctx.send("I am here, I AM HEERREEEEEEEE!! AT "+str(channel))
+        #vc.play(pl)
+        print(channel, vc)
 
 @client.command()
 async def disconnect(ctx):
