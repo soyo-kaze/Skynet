@@ -5,7 +5,7 @@
 3. numpy
 4. gtts
 5. youtube_dl
-<br>
+<br><br>
 ### Specialty :
 1. Can play audio from given youtube link.
 2. This bot is good with jokes too.
@@ -15,7 +15,7 @@
 6. can humiliate you if you're not good with it..
 <br>
 May concur the world :)
-<br>
+<br><br>
 (P.S. : It's not an AI) 
 <br>
 _link to invite this bot:_ https://discordapp.com/oauth2/authorize?client_id=637701429615919134&permissions=66582848&scope=bot
