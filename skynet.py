@@ -105,6 +105,16 @@ async def ping(ctx):
     await ctx.send("ping is "+str(ping)+"ms")
 
 @client.command()
+async def n(ctx,*mes):
+    await ctx.send("https://nhentai.net/g/"+mes[0])
+
+@client.command()
+async def randn(ctx):
+    n = np.random.randint(000,999)
+    await ctx.send("https://nhentai.net/g/325"+str(n))
+
+
+@client.command()
 async def connect(ctx):
     global pl
     global vc
