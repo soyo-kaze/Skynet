@@ -1,5 +1,5 @@
-./NSFW
-.idea
-./venv
+NSFW/
+.idea/
+venv/
 *.exe
 *.bz2
