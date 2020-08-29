@@ -51,6 +51,8 @@ xColumn = []
 xRow= []
 oColumn= []
 oRow= []
+xcheck = []
+ocheck = []
 
 theBoard = {"t-l":".","t-m":".","t-r":".",
             "m-l":".","m-m":".","m-r":".",
@@ -76,14 +78,15 @@ def ticBoard (board):
 
 @client.command()
 async def tac(ctx):
-    global play,xColumn,xRow,oColumn,oRow,theBoard,Turn,played,theCheck
+    global play,xColumn,xRow,oColumn,oRow,theBoard,Turn,played,theCheck,ocheck,xcheck
     if play:
         played = []
         xColumn = []
         xRow= []
         oColumn= []
         oRow= []
-
+        ocheck = []
+        xcheck = []
         theBoard = {"t-l":".\t","t-m":"\t","t-r":" ",
                     "m-l":".\t","m-m":"\t","m-r":" ",
                     "b-l":".\t","b-m":"\t","b-r":" ",}
@@ -111,10 +114,12 @@ async def toe(ctx,*mes):
                 if Turn == "X":
                     xColumn.append(theCheck[move][1])
                     xRow.append(theCheck[move][0])
+                    xcheck.append(theCheck[move])
                     if (                                           
                         xColumn.count(theCheck[move][1]) == 3 
                         or xRow.count(theCheck[move][0]) == 3 
-                        or {1,2,3}==set(set(xColumn).intersection(xRow)).intersection([1,2,3])
+                        or ({1,2,3}==set(set(xColumn).intersection(xRow)).intersection([1,2,3])and 
+                            ([2,2] in xcheck and [3,3] in xcheck and [1,1] in xcheck))
                     ):
                         #used set and intersection
                         await ctx.send("Player X Wins!!")
@@ -123,10 +128,12 @@ async def toe(ctx,*mes):
                 else:
                     oColumn.append(theCheck[move][1])
                     oRow.append(theCheck[move][0])
+                    ocheck.append(theCheck[move])
                     if (
                         oColumn.count(theCheck[move][1]) == 3 
                         or oRow.count(theCheck[move][0]) == 3 
-                        or {1,2,3}==set(set(oColumn).intersection(oRow)).intersection([1,2,3])
+                        or ({1,2,3}==set(set(oColumn).intersection(oRow)).intersection([1,2,3])and 
+                            ([2,2] in ocheck and [3,3] in ocheck and [1,1] in ocheck))
                     ):
                         #used set and intersection
                         await ctx.send("Player O Wins!!")
@@ -142,13 +149,14 @@ async def toe(ctx,*mes):
 
 @client.command()
 async def resettic(ctx):
-    global play,xColumn,xRow,oColumn,oRow,theBoard,Turn,played,theCheck
+    global play,xColumn,xRow,oColumn,oRow,theBoard,Turn,played,theCheck,xcheck,ocheck
     played = []
     xColumn = []
     xRow= []
     oColumn= []
     oRow= []
-
+    ocheck = []
+    xcheck = []
     theBoard = {"t-l":" ","t-m":" ","t-r":" ",
                 "m-l":" ","m-m":" ","m-r":" ",
                 "b-l":" ","b-m":" ","b-r":" ",}
