@@ -44,6 +44,120 @@ async def on_ready():
 #------- starts -----------
 stop = False # **
 
+#____________________ Tic Tac Toe ________________________
+
+played = []
+xColumn = []
+xRow= []
+oColumn= []
+oRow= []
+
+theBoard = {"t-l":".","t-m":".","t-r":".",
+            "m-l":".","m-m":".","m-r":".",
+            "b-l":".","b-m":".","b-r":".",}
+
+theCheck = {"t-l":[1,1],"t-m":[1,2],"t-r":[1,3],
+            "m-l":[2,1],"m-m":[2,2],"m-r":[2,3],
+            "b-l":[3,1],"b-m":[3,2],"b-r":[3,3],}
+play = True
+Turn = "X"
+
+def ticBoard (board):
+    """print(board["t-l"]+"|"+board["t-m"]+"|"+board["t-r"])
+    print("-+-+-")
+    print(board["m-l"]+"|"+board["m-m"]+"|"+board["m-r"])
+    print("-+-+-")
+    print(board["b-l"]+"|"+board["b-m"]+"|"+board["b-r"])"""
+    
+    return(board["t-l"]+"|"+board["t-m"]+"|"+board["t-r"]+"\n"
+          +"---+--+---"+"\n"+board["m-l"]+"|"+board["m-m"]+"|"
+          +board["m-r"]+"\n"+"---+--+---"+"\n"+board["b-l"]+"|"
+          +board["b-m"]+"|"+board["b-r"])
+
+@client.command()
+async def tac(ctx):
+    global play,xColumn,xRow,oColumn,oRow,theBoard,Turn,played,theCheck
+    if play:
+        played = []
+        xColumn = []
+        xRow= []
+        oColumn= []
+        oRow= []
+
+        theBoard = {"t-l":".\t","t-m":"\t","t-r":" ",
+                    "m-l":".\t","m-m":"\t","m-r":" ",
+                    "b-l":".\t","b-m":"\t","b-r":" ",}
+        Turn = "X"
+        await ctx.send("Welcome to Tic-Tac-Toe")
+        await ctx.send(ticBoard(theBoard))
+        await ctx.send("Player '{}'. Move where?".format(Turn))
+        play = False
+    else:
+        await ctx.send("Game is ongoing can't start. Use $resettic to reset")
+
+@client.command()
+async def toe(ctx,*mes):
+    move = mes[0]
+    global play,xColumn,xRow,oColumn,oRow,theBoard,Turn,played,theCheck
+    if not play:
+        if (move not in theBoard.keys()):
+            await ctx.send("Please type it correctly!!")
+        else:
+            if move in played:
+                await ctx.send("Already occupied!!")
+            else:
+                theBoard[move] = Turn
+                played.append(move)
+                if Turn == "X":
+                    xColumn.append(theCheck[move][1])
+                    xRow.append(theCheck[move][0])
+                    if (                                           
+                        xColumn.count(theCheck[move][1]) == 3 
+                        or xRow.count(theCheck[move][0]) == 3 
+                        or {1,2,3}==set(set(xColumn).intersection(xRow)).intersection([1,2,3])
+                    ):
+                        #used set and intersection
+                        await ctx.send("Player X Wins!!")
+                        play = True
+                    Turn = "O"
+                else:
+                    oColumn.append(theCheck[move][1])
+                    oRow.append(theCheck[move][0])
+                    if (
+                        oColumn.count(theCheck[move][1]) == 3 
+                        or oRow.count(theCheck[move][0]) == 3 
+                        or {1,2,3}==set(set(oColumn).intersection(oRow)).intersection([1,2,3])
+                    ):
+                        #used set and intersection
+                        await ctx.send("Player O Wins!!")
+                        play = True
+                    Turn = "X"
+                    
+        await ctx.send(ticBoard(theBoard))
+        if not play:
+            await ctx.send("Player '{}'. Move where?".format(Turn))
+                
+    else:
+        await ctx.send("Game is not initiated use *$tic* to initialize your tic tac toe board")
+
+@client.command()
+async def resettic(ctx):
+    global play,xColumn,xRow,oColumn,oRow,theBoard,Turn,played,theCheck
+    played = []
+    xColumn = []
+    xRow= []
+    oColumn= []
+    oRow= []
+
+    theBoard = {"t-l":" ","t-m":" ","t-r":" ",
+                "m-l":" ","m-m":" ","m-r":" ",
+                "b-l":" ","b-m":" ","b-r":" ",}
+    Turn = "X"
+    play = True
+    await ctx.send("Game Reset")
+#_______________________end_______________________________
+
+
 @client.command()
 async def greet(ctx):
     await ctx.send("hello")
@@ -112,7 +226,6 @@ async def n(ctx,*mes):
 async def randn(ctx):
     n = np.random.randint(000,999)
     await ctx.send("https://nhentai.net/g/325"+str(n))
-
 
 @client.command()
 async def connect(ctx):
