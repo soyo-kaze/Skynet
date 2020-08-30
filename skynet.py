@@ -111,9 +111,6 @@ async def toe(ctx,*mes):
             else:
                 theBoard[move] = Turn
                 played.append(move)
-                if len(xRow + oRow) == 9:
-                    await ctx.send("It's a Tie!! nice")
-                    play = True
                 if Turn == ":x:":
                     xColumn.append(theCheck[move][1])
                     xRow.append(theCheck[move][0])
@@ -145,7 +142,11 @@ async def toe(ctx,*mes):
                     
         await ctx.send(ticBoard(theBoard))
         if not play:
-            await ctx.send("Player '{}'. Move where?".format(Turn))
+            if len(xRow + oRow) == 9:
+                await ctx.send("It's a Tie!! nice")
+                play = True
+            else:        
+                await ctx.send("Player '{}'. Move where?".format(Turn))
                 
     else:
         await ctx.send("Game is not initiated use *$tic* to initialize your tic tac toe board")
