@@ -72,8 +72,8 @@ def ticBoard (board):
     print(board["b-l"]+"|"+board["b-m"]+"|"+board["b-r"])"""
     
     return(board["t-l"]+"|"+board["t-m"]+"|"+board["t-r"]+"\n"
-          +"---+--+---"+"\n"+board["m-l"]+"|"+board["m-m"]+"|"
-          +board["m-r"]+"\n"+"---+--+---"+"\n"+board["b-l"]+"|"
+          +"---+---+---"+"\n"+board["m-l"]+"|"+board["m-m"]+"|"
+          +board["m-r"]+"\n"+"---+---+---"+"\n"+board["b-l"]+"|"
           +board["b-m"]+"|"+board["b-r"])
 
 @client.command()
