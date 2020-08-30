@@ -62,7 +62,7 @@ theCheck = {"t-l":[1,1],"t-m":[1,2],"t-r":[1,3],
             "m-l":[2,1],"m-m":[2,2],"m-r":[2,3],
             "b-l":[3,1],"b-m":[3,2],"b-r":[3,3],}
 play = True
-Turn = "X"
+Turn = ":x:"
 
 def ticBoard (board):
     """print(board["t-l"]+"|"+board["t-m"]+"|"+board["t-r"])
@@ -90,7 +90,7 @@ async def tac(ctx):
         theBoard = {"t-l":".\t","t-m":"\t","t-r":" ",
                     "m-l":".\t","m-m":"\t","m-r":" ",
                     "b-l":".\t","b-m":"\t","b-r":" ",}
-        Turn = "X"
+        Turn = ":x:"
         await ctx.send("Welcome to Tic-Tac-Toe")
         await ctx.send(ticBoard(theBoard))
         await ctx.send("Player '{}'. Move where?".format(Turn))
@@ -114,7 +114,7 @@ async def toe(ctx,*mes):
                 if len(xRow + oRow) == 9:
                     await ctx.send("It's a Tie!! nice")
                     play = True
-                if Turn == "X":
+                if Turn == ":x:":
                     xColumn.append(theCheck[move][1])
                     xRow.append(theCheck[move][0])
                     xcheck.append(theCheck[move])
@@ -125,9 +125,9 @@ async def toe(ctx,*mes):
                             ([2,2] in xcheck and [3,3] in xcheck and [1,1] in xcheck))
                     ):
                         #used set and intersection
-                        await ctx.send("Player X Wins!!")
+                        await ctx.send("Player :x: Wins!!")
                         play = True
-                    Turn = "O"
+                    Turn = ":o:"
                 else:
                     oColumn.append(theCheck[move][1])
                     oRow.append(theCheck[move][0])
@@ -139,9 +139,9 @@ async def toe(ctx,*mes):
                             ([2,2] in ocheck and [3,3] in ocheck and [1,1] in ocheck))
                     ):
                         #used set and intersection
-                        await ctx.send("Player O Wins!!")
+                        await ctx.send("Player :o: Wins!!")
                         play = True
-                    Turn = "X"
+                    Turn = ":x:"
                     
         await ctx.send(ticBoard(theBoard))
         if not play:
@@ -163,7 +163,7 @@ async def resettic(ctx):
     theBoard = {"t-l":" ","t-m":" ","t-r":" ",
                 "m-l":" ","m-m":" ","m-r":" ",
                 "b-l":" ","b-m":" ","b-r":" ",}
-    Turn = "X"
+    Turn = ":x:"
     play = True
     await ctx.send("Game Reset")
 #_______________________end_______________________________
