@@ -111,6 +111,9 @@ async def toe(ctx,*mes):
             else:
                 theBoard[move] = Turn
                 played.append(move)
+                if len(xRow + oRow) == 9:
+                    await ctx.send("It's a Tie!! nice")
+                    play = True
                 if Turn == "X":
                     xColumn.append(theCheck[move][1])
                     xRow.append(theCheck[move][0])
@@ -125,9 +128,6 @@ async def toe(ctx,*mes):
                         await ctx.send("Player X Wins!!")
                         play = True
                     Turn = "O"
-                if len(xRow + oRow) == 9:
-                    await ctx.send("It's a Tie!! nice")
-                    play = True
                 else:
                     oColumn.append(theCheck[move][1])
                     oRow.append(theCheck[move][0])
