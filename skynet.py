@@ -385,7 +385,7 @@ async def meme(ctx,*me):
 
 
 
-"""
+
 @client.event
 async def on_message(message):
     global k
@@ -435,7 +435,7 @@ async def on_message(message):
     if message.content.startswith('rukja client'):
         await message.channel.send("hasta-la-vista baby!!:hand_splayed:")
         exit(0)
-    #if message.content.startswith("$greet"):
-        #await client.process_commands(message)
-"""
+    if message.content.startswith("$greet"):
+        await client.process_commands(message)
+
 client.run(t)
