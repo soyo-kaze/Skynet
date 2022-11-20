@@ -1,7 +1,7 @@
 import discord
 import time
 import cipher
-#client = discord.Client() # when not using prefixes in bot
+client = discord.Client() # when not using prefixes in bot
 
 
 # for jokes
